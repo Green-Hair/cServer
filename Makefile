@@ -1,6 +1,6 @@
 CC=gcc
 SRC=sqlite3/sqlite3.c cJSON/cJSON.c src/main.c
-OBJ=sqlite3/sqlite3.o cJSON/cJSON.o src/main.o
+OBJ=obj/sqlite3.o obj/cJSON.o obj/main.o
 DEL=del
 
 build:bin/server.exe
@@ -9,16 +9,16 @@ build:bin/server.exe
 bin/server.exe:$(OBJ)
 	$(CC) $(OBJ) -o bin/server
 
-sqlite3/sqlite3.o:sqlite3/sqlite3.c
-	$(CC) -c $<
+obj/sqlite3.o:sqlite3/sqlite3.c
+	$(CC) -c $< -o $@
 
-cJSON/cJSON.o:cJSON/cJSON.c
-	$(CC) -c $<
+obj/cJSON.o:cJSON/cJSON.c
+	$(CC) -c $< -o $@
+
+obj/main.o:src/main.c
+	$(CC) -c $< -o $@
 
 clean:
 	$(DEL) $(OBJ)
-
-$(OBJ): $(SRC)
-	$(CC) -c $<
 
 .PHONY: build clean
