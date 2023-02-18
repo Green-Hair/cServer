@@ -18,6 +18,8 @@ typedef unsigned long long _u64;
 typedef char _c;
 typedef char * _s;
 
+typedef _i32 TOKEN;
+
 typedef struct tagConfig
 {
     _u16 port;
@@ -30,12 +32,16 @@ typedef struct tagConfig
 
 typedef struct tagServer
 {
+    sqlite3 *db;
     WSADATA wsaData;
     SOCKADDR_IN servAddr;
     SOCKET hServSock;
     HANDLE hIOCP;
     HANDLE *hWorkerThreads;
     HANDLE eServerRunning;
+
+    _i32 numOfClnts;
+    TOKEN* tokens;
 }Server;
 
 _i32 LoadConfig(Config* config);
