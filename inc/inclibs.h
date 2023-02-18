@@ -20,6 +20,14 @@ typedef char * _s;
 
 typedef _i32 TOKEN;
 
+typedef enum tagStatus
+{
+    STAT_UNDEFINED=-1,
+    STAT_OFFLINE=0,
+    STAT_ONLINE,
+    STAT_SLEEP,
+}STATUS;
+
 typedef struct tagConfig
 {
     _u16 port;
@@ -27,6 +35,7 @@ typedef struct tagConfig
     _u32 max_reg;
     _s server_name;
     _s server_description;
+    _s pathDB;
     SYSTEM_INFO si;
 }Config;
 

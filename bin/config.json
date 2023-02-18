@@ -12,5 +12,8 @@
     "max-conn":64,
 
     "@max-reg":"最大注册人数",
-    "max-reg":512
+    "max-reg":512,
+
+    "@DBpath":"数据库路径",
+    "DBPath":"./user.db"
 }
