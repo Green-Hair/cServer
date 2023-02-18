@@ -42,6 +42,8 @@ _i32 LoadConfig(Config* config,_s configPath)
     find=cJSON_GetObjectItem(cjson,"max-reg");
     config->max_reg=find->valueint;
 
+    GetSystemInfo(&config->si);
+
     _func_END:
     if(re==-1)
         print_help_info(Something Wrong);
@@ -49,5 +51,31 @@ _i32 LoadConfig(Config* config,_s configPath)
     if(buf!=NULL)free(buf);
     if(cjson!=NULL)cJSON_Delete(cjson);
     if(find!=NULL)cJSON_Delete(find);
+    return re;
+}
+
+_i32 InitServer(Server* server,Config *config)
+{
+    static _i32 inited=0;
+    _i32 re=0;
+
+    if(!inited)
+        if(WSAStartup(MAKEWORD(2,2),&server->wsaData)!=0)
+            CRASH();
+    
+    memset(server,0,sizeof(Server));
+    server->config=config;
+    server->hServSock=WSASocket(AF_INET,SOCK_STREAM,0,NULL,0,WSA_FLAG_OVERLAPPED);
+    server->servAddr.sin_family=AF_INET;
+    server->servAddr.sin_port=htons(config->port);
+    server->servAddr.sin_addr.S_un.S_addr=htonl(INADDR_ANY);
+
+    if(bind(server->hServSock,(SOCKADDR*)&server->servAddr,sizeof(SOCKADDR))<0)
+        CRASH();
+    
+
+    _func_END:
+    if(re==-1)
+        print_help_info(Something Wrong);
     return re;
 }

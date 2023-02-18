@@ -43,6 +43,7 @@ typedef struct tagConfig
 
 typedef struct tagServer
 {
+    Config *config;
     sqlite3 *db;
     WSADATA wsaData;
     SOCKADDR_IN servAddr;
