@@ -1,24 +1,25 @@
 CC=gcc
-SRC=sqlite3/sqlite3.c cJSON/cJSON.c src/main.c
-OBJ=obj/sqlite3.o obj/cJSON.o obj/main.o
-DEL=del
+SRC=$(wildcard ./src/*.c)
+OBJ=$(subst src,obj,$(patsubst %.c, %.o, $(SRC)))
+INC=inc
 
 build:bin/server.exe
 	@echo Building Server...
 
-bin/server.exe:$(OBJ)
-	$(CC) $(OBJ) -o bin/server
+bin/server.exe:$(OBJ) obj/main.o
+	$(CC) $(OBJ) obj/main.o -o bin/server.exe
 
-obj/sqlite3.o:sqlite3/sqlite3.c
-	$(CC) -c $< -o $@
+obj/cJSON.o:src/cJSON.c
+	$(CC) -c $< -o $@ -Iinc
 
-obj/cJSON.o:cJSON/cJSON.c
-	$(CC) -c $< -o $@
+obj/sqlite3.o:src/sqlite3.c
+	$(CC) -c $< -o $@ -Iinc
 
-obj/main.o:src/main.c
-	$(CC) -c $< -o $@
+obj/main.o:project/main.c
+	$(CC) -c $< -o $@ -Iinc
 
 clean:
-	$(DEL) $(OBJ)
+	@del obj\*.o
+	@del bin\server.exe
 
 .PHONY: build clean

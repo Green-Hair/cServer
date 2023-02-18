@@ -1,7 +1,3 @@
-#include "../inc/inclibs.h"
+#include "inclibs.h"
 
-int main(int argc,char *argv[])
-{
-    
-    return 0;
-}
+static unsigned int ServerThreadRoutine(void *);

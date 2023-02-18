@@ -1,0 +1,16 @@
+{
+    "@server-name":"服务器名称",
+    "server-name":"Chatting",
+
+    "@server-description":"服务器描述",
+    "server-description":"A chatting server.",
+
+    "@port":"服务器运行端口",
+    "port":8080,
+
+    "@max-conn":"最大在线数量",
+    "max-conn":64,
+
+    "@max-reg":"最大注册人数",
+    "max-reg":512
+}
