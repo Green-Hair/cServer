@@ -7,6 +7,8 @@
 #include <windows.h>
 #include <process.h>
 
+#define BUFSIZE 1024
+
 typedef signed char _i8;
 typedef unsigned char _u8;
 typedef signed short _i16;
@@ -35,7 +37,7 @@ typedef struct tagConfig
     _u32 max_reg;
     _s server_name;
     _s server_description;
-    _s pathDB;
+    _s DBpath;
     SYSTEM_INFO si;
 }Config;
 
@@ -53,7 +55,7 @@ typedef struct tagServer
     TOKEN* tokens;
 }Server;
 
-_i32 LoadConfig(Config* config);
+_i32 LoadConfig(Config* config,_s configPath);
 _i32 InitServer(Server* server,Config *config);
 _i32 StartServer(Server* server);
 _i32 StopServer(Server* server);
